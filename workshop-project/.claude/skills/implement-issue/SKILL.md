@@ -8,34 +8,34 @@ allowed-tools: Read Write Edit Glob Grep Bash
 
 # Implement Issue #$0
 
-## Step 1 — อ่าน Issue ผ่าน GitHub MCP
+## Step 1 — Read the Issue via GitHub MCP
 
-ใช้ GitHub MCP อ่าน issue #$0 จาก repo spped2000/claude-workshop
-แสดง acceptance criteria เป็น numbered checklist ก่อนทำต่อ
-ถ้า MCP ไม่ตอบสนอง ให้แจ้งผู้ใช้ว่า `claude mcp list` เพื่อตรวจสอบ
+Use the GitHub MCP to read issue #$0 from repo spped2000/claude-workshop.
+Display the acceptance criteria as a numbered checklist before proceeding.
+If MCP is unresponsive, ask the user to run `claude mcp list` to verify the connection.
 
 ## Step 2 — Implement
 
-อ่าน CLAUDE.md ก่อนเพื่อเข้าใจ project structure และ conventions
-จากนั้น implement ตาม acceptance criteria ทุกข้อ:
+Read CLAUDE.md first to understand the project structure and conventions.
+Then implement all acceptance criteria:
 
-- ใช้ `async def` สำหรับทุก route handler
-- แก้ไฟล์ที่ถูกต้องตาม project structure (main.py หรือ routers/users.py ตามที่ issue ระบุ)
-- ห้ามแก้ logic ที่ไม่เกี่ยวกับ issue นี้
-- ถ้าต้องการ dependency ใหม่ ให้รัน `uv add <package>` และ commit pyproject.toml ด้วย
+- Use `async def` for all route handlers
+- Edit the correct file as described in the project structure (main.py or routers/users.py)
+- Do not modify logic unrelated to this issue
+- If a new dependency is required, run `uv add <package>` and commit pyproject.toml
 
 ## Step 3 — Write Tests
 
-สร้างไฟล์ `tests/test_<feature_name>.py` แยกใหม่ (อย่าแก้ test_users.py)
-เขียน test ครอบคลุมทุก acceptance criteria ใน issue
-รัน `uv run pytest -v` — ต้องผ่านทุก test รวมถึง 9 tests เดิม
-ถ้า test ล้มเหลวให้แก้จนผ่านก่อนไป step ถัดไป
+Create a new file `tests/test_<feature_name>.py` — do not modify test_users.py.
+Write tests covering every acceptance criteria in the issue.
+Run `uv run pytest -v` — all tests including the original 9 must pass.
+Fix any failures before moving to the next step.
 
-## Step 4 — สร้าง PR ผ่าน GitHub MCP
+## Step 4 — Create a PR via GitHub MCP
 
-ใช้ GitHub MCP สร้าง pull request:
-- **Title**: ตรงกับ issue title
-- **Body**: อธิบายว่า implement อะไรบ้าง และใส่ "Closes #$0" ท้าย body
-- **Branch**: สร้าง branch ชื่อ `feat/issue-$0-<short-description>` ก่อน commit
+Use the GitHub MCP to create a pull request:
+- **Branch**: create `feat/issue-$0-<short-description>` before committing
+- **Title**: match the issue title exactly
+- **Body**: describe what was implemented and include "Closes #$0" at the end
 
-แสดง PR URL เมื่อเสร็จสมบูรณ์
+Display the PR URL when complete.

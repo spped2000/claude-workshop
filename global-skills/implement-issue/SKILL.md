@@ -8,60 +8,61 @@ allowed-tools: Read Write Edit Glob Grep Bash
 
 # Implement Issue #$0
 
-## Step 1 — ตรวจสอบ Project Context
+## Step 1 — Understand the Project
 
-อ่านไฟล์เหล่านี้ก่อนทำอะไรทั้งนั้น:
-- `CLAUDE.md` (ถ้ามี) — conventions, MCP servers, project structure
-- `README.md` — quick start, tech stack, run commands
-- `pyproject.toml` หรือ `package.json` — dependencies, test/run scripts
+Read these files before doing anything else:
+- `CLAUDE.md` (if present) — conventions, MCP servers, project structure
+- `README.md` — tech stack, run commands, test instructions
+- `pyproject.toml` or `package.json` — dependencies and scripts
 
-Detect repo name อัตโนมัติ:
+Detect the current repo name:
 - !`gh repo view --json nameWithOwner -q .nameWithOwner 2>/dev/null || git remote get-url origin 2>/dev/null || echo "unknown"`
 
-## Step 2 — อ่าน Issue ผ่าน GitHub MCP
+## Step 2 — Read the Issue via GitHub MCP
 
-ใช้ GitHub MCP อ่าน issue #$0 จาก repo ที่ detect ได้ใน Step 1
-สรุป acceptance criteria เป็น numbered checklist ก่อนทำต่อ
+Use the GitHub MCP to read issue #$0 from the repo detected in Step 1.
+Summarize the acceptance criteria as a numbered checklist before proceeding.
 
-ถ้า MCP ไม่ตอบสนอง:
+If MCP is unavailable:
 ```
-claude mcp list   # ตรวจสอบว่ามี github MCP ไหม
+claude mcp list
 claude mcp add github -e GITHUB_TOKEN=$GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github
 ```
 
 ## Step 3 — Implement
 
-Follow conventions จาก CLAUDE.md หรือ README ที่อ่านใน Step 1
-ถ้าไม่มี CLAUDE.md ให้ infer จาก codebase:
-- ดูไฟล์ที่มีอยู่แล้วใน project เพื่อเข้าใจ pattern ที่ใช้
-- ห้ามแก้ logic ที่ไม่เกี่ยวกับ issue นี้
-- ถ้าต้องการ dependency ใหม่ ให้เพิ่มผ่าน package manager ของ project นั้น
+Follow conventions from CLAUDE.md or README found in Step 1.
+If no CLAUDE.md exists, infer conventions from the existing codebase:
+- Read existing source files to understand patterns in use
+- Match the code style of the file you are editing
+- Do not modify logic unrelated to this issue
+- Add new dependencies through the project's package manager
 
 ## Step 4 — Write Tests
 
-หา test pattern จาก existing tests ใน project แล้ว follow pattern เดิม
-สร้าง test file ใหม่แยกจาก tests เดิม
-รัน test suite ของ project — ต้องผ่านทั้งหมดรวมถึง tests เดิม
+Find the existing test pattern in the project and follow it.
+Create a new test file separate from existing tests.
+Run the full test suite — all tests including pre-existing ones must pass.
 
-Detect test command อัตโนมัติ:
-- !`cat pyproject.toml 2>/dev/null | grep -A2 '\[tool.pytest' || cat package.json 2>/dev/null | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('scripts',{}).get('test',''))" 2>/dev/null || echo "check README for test command"`
+Detect test command:
+- !`cat pyproject.toml 2>/dev/null | grep -A2 '\[tool.pytest' | head -5 || cat package.json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print('npm test:', d.get('scripts',{}).get('test','not found'))" 2>/dev/null || echo "Check README for test command"`
 
-## Step 5 — Commit และสร้าง PR
+## Step 5 — Commit and Create a PR
 
-สร้าง branch: `feat/issue-$0-<short-description>`
-Commit เฉพาะไฟล์ที่เกี่ยวกับ issue นี้
+Create branch: `feat/issue-$0-<short-description>`
+Commit only files related to this issue.
 
-สร้าง PR ผ่าน GitHub MCP:
-- **Title**: ตรงกับ issue title
+Create a PR via GitHub MCP:
+- **Title**: match the issue title exactly
 - **Body**:
   ```
   ## What was implemented
-  <bullet points ของสิ่งที่ทำ>
+  <bullet points of changes made>
 
   ## Tests added
-  <ชื่อ test file และจำนวน tests>
+  <test file name and number of tests>
 
   Closes #$0
   ```
 
-แสดง PR URL เมื่อเสร็จสมบูรณ์
+Display the PR URL when complete.

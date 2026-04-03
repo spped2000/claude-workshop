@@ -1,19 +1,19 @@
 # Workshop API — Module 4: MCP & External Integrations
 
-Base project สำหรับ Lab 4.3 — GitHub Issue → PR workflow
+Base project for Lab 4.3 — GitHub Issue → PR workflow
 
 ## Quick Start
 
 ```bash
-# ติดตั้ง dependencies (ครั้งแรก)
+# Install dependencies
 uv sync
 
-# รัน server
+# Run dev server
 uv run uvicorn app.main:app --reload
 ```
 
-API จะอยู่ที่ http://localhost:8000
-Docs อยู่ที่ http://localhost:8000/docs
+API: http://localhost:8000  
+Docs: http://localhost:8000/docs
 
 ## Run Tests
 
@@ -47,12 +47,12 @@ tests/
 
 ## Your Task
 
-1. ดู GitHub issue ที่ได้รับมอบหมายโดยใช้ GitHub MCP
-2. Implement feature ตาม acceptance criteria ใน issue
-3. เขียน tests
-4. สร้าง PR
+1. Read your assigned GitHub issue using the GitHub MCP
+2. Implement the feature following the acceptance criteria
+3. Write tests in a separate file `tests/test_<feature>.py`
+4. Create a PR referencing the issue number
 
 ```
-Read issue #<หมายเลข issue ของกลุ่มคุณ> from this repo.
+Read issue #<your group's issue number> from spped2000/claude-workshop.
 Implement the feature, write tests, and create a PR.
 ```

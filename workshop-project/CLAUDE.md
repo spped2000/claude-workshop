@@ -11,7 +11,7 @@ The API is **intentionally incomplete** — your assigned GitHub issue describes
 - **github**: Read issues, create branches, open pull requests
   - Key tools: `get_issue`, `create_branch`, `create_pull_request`, `search_code`
 
-## Your Task (for each group)
+## Your Task
 
 1. Use the GitHub MCP to read your assigned issue number
 2. Implement the feature described in the acceptance criteria
