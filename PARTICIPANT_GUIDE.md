@@ -16,11 +16,23 @@ GitHub Issue  →  Claude อ่าน  →  Implement  →  Tests Pass  →  PR
 # 1. Python 3.11+
 python --version
 
-# 2. Claude Code
+# 2. uv
+uv --version
+
+# 3. Claude Code
 claude --version
 
-# 3. Node.js (สำหรับ MCP server)
+# 4. Node.js (สำหรับ MCP server)
 node --version
+```
+
+ถ้ายังไม่มี uv:
+```bash
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows PowerShell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 ---
@@ -28,14 +40,15 @@ node --version
 ## 🔧 Step 1: ติดตั้ง Project
 
 ```bash
-# Clone หรือ copy workshop-project
-cd workshop-project
+# Clone repo
+git clone https://github.com/spped2000/claude-workshop.git
+cd claude-workshop/workshop-project
 
-# ติดตั้ง dependencies
-pip install -r requirements.txt
+# ติดตั้ง dependencies ด้วย uv (เร็วกว่า pip มาก)
+uv sync
 
 # ทดสอบว่า project ทำงานได้
-pytest
+uv run pytest
 # ✅ ควรเห็น: 9 passed
 ```
 
@@ -65,7 +78,6 @@ claude mcp list
 ## 🚀 Step 3: เปิด Claude Code ใน Project
 
 ```bash
-cd workshop-project
 claude
 ```
 
@@ -88,7 +100,7 @@ claude
 **พิมพ์ prompt นี้ใน Claude Code** (เปลี่ยน `<N>` เป็นหมายเลข issue ของกลุ่มคุณ):
 
 ```
-Read issue #<N> from the workshop repo and summarize
+Read issue #<N> from spped2000/claude-workshop and summarize
 the acceptance criteria as a checklist.
 ```
 
@@ -121,13 +133,13 @@ Run the tests and show me the results.
 
 หรือรันเองใน terminal:
 ```bash
-pytest -v
+uv run pytest -v
 ```
 
 **ผลที่ต้องการ:**
 ```
-✅ tests/test_users.py - 9 passed   (existing tests ต้องยังผ่าน)
-✅ tests/test_<feature>.py - X passed  (tests ใหม่จาก Claude)
+✅ tests/test_users.py - 9 passed        (existing tests ต้องยังผ่าน)
+✅ tests/test_<feature>.py - X passed    (tests ใหม่จาก Claude)
 ```
 
 ถ้า test ล้มเหลว บอก Claude:
@@ -159,7 +171,7 @@ and reference the issue number.
 
 - [ ] Claude อ่าน issue ด้วย MCP ได้ (ไม่ได้ copy-paste)
 - [ ] Feature implement ถูกต้องตาม acceptance criteria
-- [ ] `pytest` ผ่านทุก test (รวม tests เดิม)
+- [ ] `uv run pytest` ผ่านทุก test (รวม tests เดิม)
 - [ ] PR ถูกสร้างบน GitHub
 - [ ] PR description มี "Closes #<N>"
 - [ ] PR description อธิบายว่า implement อะไรไปบ้าง
@@ -170,12 +182,13 @@ and reference the issue number.
 
 | ปัญหา | วิธีแก้ |
 |-------|---------|
+| `uv: command not found` | ติดตั้ง uv ตาม Step 0 |
 | `github` ไม่ปรากฏใน `claude mcp list` | รัน `claude mcp add github -- npx -y @anthropic-ai/mcp-server-github` อีกครั้ง |
 | MCP คืน 401 Unauthorized | ตรวจสอบว่า `GITHUB_TOKEN` set ถูกต้อง |
-| MCP คืน 404 on issue | ตรวจสอบ repo name กับผู้สอน |
+| MCP คืน 404 on issue | ใช้ `spped2000/claude-workshop` เป็น repo name |
 | Tests ล้มเหลวเพราะ state ค้าง | `conftest.py` ควร reset อัตโนมัติ — ถามผู้สอน |
 | Claude แก้ไฟล์ผิด | พิมพ์ `Re-read CLAUDE.md and confirm the correct file to edit.` |
-| `pytest` ไม่เจอ tests | ตรวจสอบว่า `cd workshop-project` ก่อนรัน |
+| `pytest` ไม่เจอ tests | ตรวจสอบว่าอยู่ใน `workshop-project/` แล้วใช้ `uv run pytest` |
 
 ---
 

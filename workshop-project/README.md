@@ -5,8 +5,11 @@ Base project สำหรับ Lab 4.3 — GitHub Issue → PR workflow
 ## Quick Start
 
 ```bash
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+# ติดตั้ง dependencies (ครั้งแรก)
+uv sync
+
+# รัน server
+uv run uvicorn app.main:app --reload
 ```
 
 API จะอยู่ที่ http://localhost:8000
@@ -15,7 +18,7 @@ Docs อยู่ที่ http://localhost:8000/docs
 ## Run Tests
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## Project Structure

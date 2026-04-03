@@ -11,7 +11,8 @@
 - [ ] Claude Code เปิดอยู่และอยู่ใน directory นั้น
 - [ ] GitHub MCP ติดตั้งแล้ว (`claude mcp list` เห็น `github`)
 - [ ] `GITHUB_TOKEN` set ใน environment
-- [ ] มี GitHub repo สำหรับ workshop พร้อม issue #101 อยู่แล้ว
+- [ ] มี GitHub repo `spped2000/claude-workshop` พร้อม issue #1 อยู่แล้ว
+- [ ] รัน `uv sync` แล้ว และ `uv run pytest` ผ่าน 9 tests
 
 ---
 
@@ -43,8 +44,8 @@ Show me the contents of CLAUDE.md
 
 **พิมพ์ใน Claude Code:**
 ```
-Use the GitHub MCP to read issue #101 from this repo and summarize
-the acceptance criteria as a numbered checklist.
+Use the GitHub MCP to read issue #1 from spped2000/claude-workshop
+and summarize the acceptance criteria as a numbered checklist.
 ```
 
 **รอให้ Claude:**
@@ -53,7 +54,7 @@ the acceptance criteria as a numbered checklist.
 3. สรุป acceptance criteria
 
 **ชี้ให้เห็น:**
-- Tool call ที่ปรากฏ: `github.get_issue(owner="...", repo="...", issue_number=101)`
+- Tool call ที่ปรากฏ: `github.get_issue(owner="spped2000", repo="claude-workshop", issue_number=1)`
 - Claude อ่าน issue body โดยตรง — ไม่ใช่แค่ชื่อ issue
 - Acceptance criteria ถูก format เป็น checklist
 
@@ -70,7 +71,7 @@ the acceptance criteria as a numbered checklist.
 
 **พิมพ์ใน Claude Code:**
 ```
-Implement all the acceptance criteria from issue #101.
+Implement all the acceptance criteria from issue #1.
 Follow the conventions in CLAUDE.md.
 Write the code and add tests.
 ```
@@ -82,7 +83,7 @@ Write the code and add tests.
 
 **ชี้ให้เห็น:**
 - Claude รู้ว่าต้องแก้ `main.py` เพราะ CLAUDE.md บอกว่า health check ไม่ได้อยู่ใน router
-- Test ใช้ pattern เดียวกับ `tests/conftest.py` ที่มีอยู่แล้ว
+- Test ใช้ pattern เดียวกับ `tests/conftest.py` ที่มีอยู่แล้ว (`async def test_...`)
 - Claude ไม่ต้องถามว่า "test ไว้ที่ไหน?" เพราะ project structure ชัดเจน
 
 **Pause และพูด:**
@@ -95,18 +96,18 @@ Write the code and add tests.
 
 **พิมพ์ใน Claude Code:**
 ```
-Run the tests, then open a pull request for issue #101.
+Run the tests, then open a pull request for issue #1.
 The PR description should reference the issue number and list what was added.
 ```
 
 **รอให้ Claude:**
-1. Run `pytest` — เห็น output ว่าผ่านทุก test
+1. Run `uv run pytest` — เห็น output ว่าผ่านทุก test
 2. เรียก `create_pull_request` ผ่าน GitHub MCP
 3. แสดง PR URL
 
 **ชี้ให้เห็น:**
 - Test output ทุก test pass รวมถึง test ใหม่
-- PR body มี "Closes #101" — GitHub จะ auto-close issue เมื่อ merge
+- PR body มี "Closes #1" — GitHub จะ auto-close issue เมื่อ merge
 - PR description อธิบายว่า implement อะไรไปบ้าง
 
 **เปิด GitHub และแสดง PR จริง:**
@@ -121,7 +122,7 @@ The PR description should reference the issue number and list what was added.
 1. "ถ้าไม่มี CLAUDE.md ใน project นี้ จะต่างกันยังไง?"
    - *คำตอบที่ต้องการ:* Claude ต้อง explore codebase เอง, อาจแก้ผิดไฟล์, ไม่รู้ว่ามี MCP อะไรบ้าง
 
-2. "ถ้า issue #101 ไม่มี acceptance criteria ชัดเจน จะเกิดอะไร?"
+2. "ถ้า issue #1 ไม่มี acceptance criteria ชัดเจน จะเกิดอะไร?"
    - *คำตอบที่ต้องการ:* Claude จะ implement ตามความเข้าใจตัวเอง ซึ่งอาจไม่ตรง spec
 
 3. "Workflow นี้ต่างจากการ copy-paste code จาก ChatGPT ยังไง?"
@@ -129,7 +130,7 @@ The PR description should reference the issue number and list what was added.
 
 **Transition:**
 > "ทีนี้ถึงเวลา lab — แต่ละกลุ่มจะทำ issue ของตัวเอง
-> ก่อนเริ่ม ตั้งค่า GitHub MCP ตาม step ใน slide ก่อนนะ"
+> ก่อนเริ่ม ตั้งค่า GitHub MCP ตาม step ใน PARTICIPANT_GUIDE.md ก่อนนะ"
 
 ---
 
@@ -147,12 +148,12 @@ export GITHUB_TOKEN=<token>
 ```
 
 ### `get_issue` คืน 404
-- ตรวจสอบว่า repo name ใน MCP config ตรงกับ repo จริง
+- ตรวจสอบว่า repo name ใช้ `spped2000/claude-workshop`
 - ตรวจสอบว่า `GITHUB_TOKEN` มีสิทธิ์อ่าน repo นั้น
 
 ### Tests ล้มเหลวตอน run ครั้งแรก
 - ตรวจสอบ `tests/conftest.py` — `autouse=True` fixture จะ reset DB อัตโนมัติ
-- ถ้า test ล้มเหลวเพราะ state ค้าง แสดงว่า fixture ไม่ได้ถูก import
+- ใช้ `uv run pytest -v` เพื่อดู error ละเอียด
 
 ### Claude แก้ไฟล์ผิด
 ให้บอก:
@@ -160,9 +161,9 @@ export GITHUB_TOKEN=<token>
 Please re-read CLAUDE.md and confirm which file should contain the health check endpoint.
 ```
 
-### `pytest` ไม่เจอ test files
+### `uv run pytest` ไม่เจอ test files
 ```bash
+# ต้องรันจาก workshop-project/ เสมอ
 cd workshop-project
-pytest -v
+uv run pytest -v
 ```
-ต้องรัน pytest จาก directory `workshop-project/` ไม่ใช่ root

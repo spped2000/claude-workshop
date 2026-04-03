@@ -25,7 +25,7 @@ The API is **intentionally incomplete** — your assigned GitHub issue describes
 - In-memory storage only — no database imports, no SQLAlchemy
 - Add new routes to `app/routers/users.py` or directly to `app/main.py` (check your issue)
 - Tests go in `tests/`, use `pytest-asyncio` with `httpx.AsyncClient`
-- Add new dependencies to `requirements.txt` only if your issue explicitly requires one
+- Add new dependencies with `uv add <package>` only if your issue explicitly requires one
 
 ## Project Structure
 
@@ -38,10 +38,18 @@ tests/conftest.py     — Shared fixtures (auto-resets DB between tests)
 tests/test_users.py   — Existing CRUD tests
 ```
 
+## Run Commands
+
+```bash
+uv run pytest          # run tests
+uv run pytest -v       # verbose
+uv run uvicorn app.main:app --reload  # dev server
+uv add <package>       # add new dependency
+```
+
 ## Test Pattern
 
 ```python
-@pytest.mark.asyncio
 async def test_example(client):  # client fixture from conftest.py
     response = await client.get("/some-endpoint")
     assert response.status_code == 200
