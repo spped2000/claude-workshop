@@ -11,7 +11,7 @@ This repository is a hands-on workshop for learning GitHub MCP workflows with Cl
 
 ```
 workshop-project/    ← Base FastAPI project participants work in
-github-issues/       ← Issue templates to create on GitHub (#101–#107)
+github-issues/       ← Issue templates (reference copies of #1–#7)
 instructor-demo/     ← Live demo script for section 4.2
 ```
 
@@ -21,13 +21,13 @@ This repo has 7 open issues — one per group:
 
 | Group | Issue | Feature |
 |-------|-------|---------|
-| 1 | #101 | Add health check endpoint |
-| 2 | #102 | Add request logging middleware |
-| 3 | #103 | Add input validation for POST /users |
-| 4 | #104 | Add soft delete for users |
-| 5 | #105 | Add search endpoint GET /users/search |
-| 6 | #106 | Add CORS configuration |
-| 7 | #107 | Add response compression |
+| 1 | #1 | Add health check endpoint |
+| 2 | #2 | Add request logging middleware |
+| 3 | #3 | Add input validation for POST /users |
+| 4 | #4 | Add soft delete for users |
+| 5 | #5 | Add search endpoint GET /users/search |
+| 6 | #6 | Add CORS configuration |
+| 7 | #7 | Add response compression |
 
 ## MCP Setup
 

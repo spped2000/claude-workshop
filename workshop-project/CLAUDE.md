@@ -16,7 +16,7 @@ The API is **intentionally incomplete** — your assigned GitHub issue describes
 1. Use the GitHub MCP to read your assigned issue number
 2. Implement the feature described in the acceptance criteria
 3. Write or update tests — all existing tests must continue to pass
-4. Open a PR referencing the issue number (e.g. "Closes #101")
+4. Open a PR referencing the issue number (e.g. "Closes #1")
 
 ## Coding Conventions
 
