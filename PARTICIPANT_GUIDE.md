@@ -58,7 +58,7 @@ uv run pytest
 
 ```bash
 # เพิ่ม GitHub MCP ใน Claude Code
-claude mcp add github -- npx -y @anthropic-ai/mcp-server-github
+claude mcp add github -e GITHUB_TOKEN=$env:GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github
 
 # Set GitHub token (ใช้ token ที่ได้รับจากผู้สอน)
 export GITHUB_TOKEN=<token ที่แจกให้>
@@ -183,7 +183,7 @@ and reference the issue number.
 | ปัญหา | วิธีแก้ |
 |-------|---------|
 | `uv: command not found` | ติดตั้ง uv ตาม Step 0 |
-| `github` ไม่ปรากฏใน `claude mcp list` | รัน `claude mcp add github -- npx -y @anthropic-ai/mcp-server-github` อีกครั้ง |
+| `github` ไม่ปรากฏใน `claude mcp list` | รัน `claude mcp add github -e GITHUB_TOKEN=$env:GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github` อีกครั้ง |
 | MCP คืน 401 Unauthorized | ตรวจสอบว่า `GITHUB_TOKEN` set ถูกต้อง |
 | MCP คืน 404 on issue | ใช้ `spped2000/claude-workshop` เป็น repo name |
 | Tests ล้มเหลวเพราะ state ค้าง | `conftest.py` ควร reset อัตโนมัติ — ถามผู้สอน |

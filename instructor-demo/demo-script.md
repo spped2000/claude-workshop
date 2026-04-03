@@ -143,7 +143,7 @@ claude mcp list
 ```
 ถ้าไม่เห็น:
 ```bash
-claude mcp add github -- npx -y @anthropic-ai/mcp-server-github
+claude mcp add github -e GITHUB_TOKEN=$env:GITHUB_TOKEN -- npx -y @modelcontextprotocol/server-github
 export GITHUB_TOKEN=<token>
 ```
 
