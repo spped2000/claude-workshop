@@ -1,18 +1,31 @@
-# Claude Workshop — Module 4: MCP & External Integrations
+# Claude Workshop — MCP, Skills & Large Project Best Practices
 
 ## Overview
 
-This repository is a hands-on workshop for learning GitHub MCP workflows with Claude Code.
+This repository contains hands-on workshops for learning Claude Code workflows.
 
-**Workshop duration:** 60 minutes  
-**Objective:** GitHub Issue → Implement → Test → PR — all from a single Claude Code prompt
+## Modules
+
+### Module 4: MCP & External Integrations (60 min)
+GitHub Issue → Implement → Test → PR — all from a single Claude Code prompt.
+See `PARTICIPANT_GUIDE.md` for the step-by-step lab guide.
+
+### Module 5: Large Project Best Practices (100-115 min)
+Worktrees, token optimization, multi-issue workflows, PR reviews, Skills deep dive.
+See `module-5-large-projects/WORKSHOP.md` for the standalone workshop.
+Reference: https://claude.com/blog/skills-explained
 
 ## Repository Structure
 
 ```
-workshop-project/    ← Base FastAPI project participants work in
-github-issues/       ← Issue templates (reference copies of #1–#7)
-instructor-demo/     ← Live demo script for section 4.2
+workshop-project/              ← Base FastAPI project (shared by both modules)
+github-issues/                 ← Issue templates (reference copies of #1–#7)
+instructor-demo/               ← Module 4 live demo script
+module-5-large-projects/       ← Module 5 workshop materials
+  ├── WORKSHOP.md              ← Main workshop (standalone)
+  ├── BUILDING_BLOCKS.md       ← 5 Building Blocks handout
+  ├── INSTRUCTOR_NOTES.md      ← Instructor timing & notes
+  └── skills/explore-issue/    ← context:fork exploration skill
 ```
 
 ## Open GitHub Issues
