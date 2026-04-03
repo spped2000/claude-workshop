@@ -192,7 +192,7 @@ and reference the issue number.
 
 ---
 
-## 🏆 Track B: ทดลองเพิ่มเติม (ถ้าเสร็จเร็ว)
+## 🏆 Track B: Filesystem MCP (ถ้าเสร็จ Track A แล้ว)
 
 ติดตั้ง Filesystem MCP และทดลองใช้:
 
@@ -204,3 +204,50 @@ claude mcp add filesystem -- npx -y @anthropic-ai/mcp-server-filesystem /tmp/wor
 ```
 List all Python files in this project and summarize what each one does.
 ```
+
+---
+
+## ⚡ Track C: Skills + MCP (ระดับ Advanced)
+
+Track นี้สาธิตการรวม **Skills** (slash command) เข้ากับ **GitHub MCP** — ทำ workflow ทั้งหมดด้วย **คำสั่งเดียว**
+
+### ความแตกต่างจาก Track A
+
+| | Track A | Track C |
+|---|---|---|
+| สิ่งที่พิมพ์ | 3 prompts แยกกัน | `/implement-issue <N>` |
+| วิธีทำงาน | Manual prompt ทีละ step | Skill จัดการทุก step อัตโนมัติ |
+| เรียนรู้อะไร | MCP workflow | Skills + MCP ทำงานร่วมกัน |
+
+### วิธีใช้
+
+Skill `implement-issue` มีอยู่ใน project แล้วที่ `.claude/skills/implement-issue/SKILL.md`
+
+เปิด Claude Code แล้วพิมพ์:
+
+```
+/implement-issue <N>
+```
+
+เปลี่ยน `<N>` เป็นหมายเลข issue ของกลุ่มคุณ — Claude จะทำทุกอย่างให้ครบ:
+
+1. อ่าน issue #N ผ่าน GitHub MCP
+2. Implement ตาม acceptance criteria
+3. เขียน tests ใน `tests/test_<feature>.py`
+4. รัน `uv run pytest` ให้ผ่านทั้งหมด
+5. สร้าง PR ผ่าน GitHub MCP
+
+### ดู Skill ที่ใช้
+
+```bash
+cat .claude/skills/implement-issue/SKILL.md
+```
+
+### ถ้าอยากสร้าง Skill ของตัวเอง
+
+```bash
+mkdir -p .claude/skills/my-skill
+# สร้าง SKILL.md ใน directory นั้น
+```
+
+ลองสร้าง skill สำหรับ `/code-review` ที่ review PR อัตโนมัติ หรือ `/fix-tests` ที่แก้ failing tests ให้
