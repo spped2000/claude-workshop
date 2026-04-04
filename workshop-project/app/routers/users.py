@@ -20,6 +20,12 @@ async def list_users():
     return list(database.users_db.values())
 
 
+@router.options("", status_code=204)
+async def options_users():
+    """Handle OPTIONS preflight request for CORS"""
+    return None
+
+
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(user_id: int):
     user = database.get_user(user_id)
