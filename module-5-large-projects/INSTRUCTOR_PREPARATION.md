@@ -795,11 +795,49 @@ ls workshop-project/.claude/skills/
 
 **Step 3.5: อธิบาย `claude -w` (shortcut)**
 
-> "ถ้าไม่อยาก manual สร้าง worktree เอง Claude Code มี flag `-w`:
+> **อธิบาย:**
+> "ที่เราเพิ่งทำ 2 คำสั่ง:
+> ```bash
+> git worktree add ../issue-3-validation -b feat/issue-3-validation
+> cd ../issue-3-validation/workshop-project
+> claude
+> ```
+>
+> Claude Code มี flag `-w` (หรือ `--worktree`) ที่รวม **ทุกอย่าง** ให้ในคำสั่งเดียว:
 > ```bash
 > claude -w
 > ```
-> Claude จะสร้าง worktree ให้อัตโนมัติ เราสอน manual ก่อนเพื่อให้เข้าใจ concept"
+>
+> เบื้องหลัง `claude -w` ทำอะไร:
+> 1. สร้าง git worktree ให้อัตโนมัติ (ตั้ง branch name ให้)
+> 2. cd เข้าไปใน worktree นั้น
+> 3. เริ่ม Claude session ทันที
+> 4. **ถ้า Claude ไม่ได้แก้ไฟล์อะไรเลย** → worktree ถูกลบอัตโนมัติ (auto-cleanup)
+> 5. **ถ้า Claude แก้ไฟล์** → worktree ยังอยู่ บอก path และ branch ให้
+>
+> ข้อดีของ `-w`:
+> - **ไม่ต้องคิดชื่อ branch** — Claude ตั้งให้
+> - **ไม่ต้อง cd** — เข้า worktree ให้เลย
+> - **auto-cleanup** — ถ้าไม่ได้ใช้จริง ลบให้ไม่ต้องจัดการเอง
+>
+> ข้อเสียของ `-w` (ทำไมเราสอน manual ก่อน):
+> - **ไม่เห็นว่าเกิดอะไร** — ผู้เรียนไม่เข้าใจว่า worktree คืออะไร
+> - **ชื่อ branch อาจไม่ตรง convention** — manual ตั้งเองได้ เช่น `feat/issue-3-validation`
+> - **ต้องเข้าใจ concept ก่อน** ถึงจะใช้ shortcut ได้อย่างมั่นใจ
+>
+> ในชีวิตจริง:
+> - **ทำ issue เร่งด่วนเร็วๆ** → ใช้ `claude -w` (สะดวก)
+> - **ทำ issue สำคัญ ต้องตั้งชื่อ branch ตาม convention** → ใช้ manual
+>
+> Desktop App (Mac/Windows) ก็มี checkbox 'worktree' ที่ทำสิ่งเดียวกัน"
+>
+> **Demo (ถ้ามีเวลา):**
+> ```bash
+> cd claude-workshop
+> claude -w
+> ```
+> ให้ผู้เรียนเห็นว่า Claude สร้าง worktree + เริ่ม session ทันที
+> แล้ว `/exit` → ถ้าไม่ได้แก้อะไร worktree จะถูกลบอัตโนมัติ
 
 **Step 3.6: Core Principle**
 

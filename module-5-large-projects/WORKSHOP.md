@@ -228,15 +228,40 @@ cat workshop-project/CLAUDE.md
 
 ### `claude -w` — Shortcut
 
+ที่เราเพิ่งทำ 3 ขั้นตอน:
 ```bash
-# แทนที่จะ manual:
-# git worktree add ... + cd ... + claude
-# ใช้:
-claude -w
-# Claude จะสร้าง worktree ให้อัตโนมัติ
+git worktree add ../issue-3-validation -b feat/issue-3-validation   # 1. สร้าง worktree
+cd ../issue-3-validation/workshop-project                           # 2. เข้า directory
+claude                                                              # 3. เปิด Claude
 ```
 
-เราสอน manual ก่อนเพื่อให้เข้าใจ concept — แล้วค่อยใช้ shortcut
+`claude -w` (หรือ `--worktree`) รวมทุกอย่างเป็น **คำสั่งเดียว**:
+```bash
+claude -w
+```
+
+#### เบื้องหลัง `claude -w` ทำอะไร
+
+```
+1. สร้าง git worktree ให้อัตโนมัติ (ตั้งชื่อ branch ให้)
+2. cd เข้า worktree นั้น
+3. เริ่ม Claude session ทันที
+4. ถ้า Claude ไม่ได้แก้ไฟล์อะไร → worktree ถูกลบอัตโนมัติ (auto-cleanup)
+5. ถ้า Claude แก้ไฟล์ → worktree ยังอยู่ บอก path + branch ให้
+```
+
+#### เมื่อไหร่ใช้อะไร
+
+| สถานการณ์ | ใช้ | เหตุผล |
+|-----------|-----|--------|
+| Issue เร่งด่วน ทำเร็วๆ | `claude -w` | สะดวก ไม่ต้องคิดชื่อ branch |
+| Issue สำคัญ ต้องตาม convention | Manual | ตั้งชื่อ branch เช่น `feat/issue-3-validation` |
+| ลองทำอะไรดูก่อน (experiment) | `claude -w` | auto-cleanup ถ้าไม่ได้ใช้จริง |
+| ทำงานร่วมกับทีม ต้อง push | Manual | ชื่อ branch ที่ชัดเจนสื่อสารง่ายกว่า |
+
+> Desktop App (Mac/Windows) ก็มี checkbox **"worktree"** ที่ทำสิ่งเดียวกัน
+
+เราสอน manual ก่อนเพื่อให้เข้าใจ concept — แล้วในชีวิตจริงจะใช้ `claude -w` ก็ได้
 
 ---
 
