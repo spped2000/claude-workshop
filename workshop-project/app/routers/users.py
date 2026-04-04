@@ -1,8 +1,18 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from app import database
 from app.models import UserCreate, UserUpdate, UserResponse
 
 router = APIRouter()
+
+
+@router.get("/search", response_model=list[UserResponse])
+async def search_users(q: str = Query(...)):
+    query = q.lower()
+    results = [
+        u for u in database.users_db.values()
+        if query in u["name"].lower() or query in u["email"].lower()
+    ]
+    return results
 
 
 @router.get("", response_model=list[UserResponse])
