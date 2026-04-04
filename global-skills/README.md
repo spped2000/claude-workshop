@@ -2,9 +2,9 @@
 
 Skills เหล่านี้ออกแบบมาให้ทำงานได้กับ **ทุก GitHub repository** โดยไม่ต้อง config เพิ่ม
 
-## วิธีติดตั้ง
+##  วิธีติดตั้ง
 
-```bash
+```bash 
 # macOS / Linux
 mkdir -p ~/.claude/skills/implement-issue
 cp global-skills/implement-issue/SKILL.md ~/.claude/skills/implement-issue/
