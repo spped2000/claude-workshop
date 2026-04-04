@@ -37,3 +37,9 @@ async def delete_user(user_id: int):
     deleted = database.delete_user(user_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+@router.options("", status_code=204)
+async def options_users():
+    """Handle OPTIONS preflight for /users"""
+    pass
