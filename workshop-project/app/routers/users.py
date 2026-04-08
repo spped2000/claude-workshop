@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("", response_model=list[UserResponse])
 async def list_users():
-    return list(database.users_db.values())
+    return [u for u in database.users_db.values() if not u.get("is_deleted")]
 
 
 @router.get("/{user_id}", response_model=UserResponse)
@@ -37,3 +37,11 @@ async def delete_user(user_id: int):
     deleted = database.delete_user(user_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+@router.post("/{user_id}/restore", response_model=UserResponse)
+async def restore_user(user_id: int):
+    user = database.restore_user(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
