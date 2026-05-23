@@ -12,12 +12,15 @@ def get_next_id() -> int:
 
 
 def get_user(user_id: int) -> dict[str, Any] | None:
-    return users_db.get(user_id)
+    user = users_db.get(user_id)
+    if user is None or user.get("is_deleted"):
+        return None
+    return user
 
 
 def create_user(data: dict[str, Any]) -> dict[str, Any]:
     user_id = get_next_id()
-    user = {"id": user_id, **data}
+    user = {"id": user_id, "is_deleted": False, **data}
     users_db[user_id] = user
     return user
 
@@ -31,7 +34,16 @@ def update_user(user_id: int, data: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def delete_user(user_id: int) -> bool:
-    if user_id not in users_db:
+    user = users_db.get(user_id)
+    if user is None or user.get("is_deleted"):
         return False
-    del users_db[user_id]
+    user["is_deleted"] = True
     return True
+
+
+def restore_user(user_id: int) -> dict[str, Any] | None:
+    user = users_db.get(user_id)
+    if user is None or not user.get("is_deleted"):
+        return None
+    user["is_deleted"] = False
+    return user
